@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/iamantony/images2grey.svg?branch=master)](https://travis-ci.org/iamantony/images2grey)   [![Coverage Status](https://coveralls.io/repos/iamantony/images2grey/badge.png)](https://coveralls.io/r/iamantony/images2grey)
+[![Build Status](https://travis-ci.org/iamantony/images2grey.svg?branch=master)](https://travis-ci.org/iamantony/images2grey)   [![Coverage Status](https://coveralls.io/repos/iamantony/images2grey/badge.png?branch=master)](https://coveralls.io/r/iamantony/images2grey?branch=master)
 
 images2grey
 ===========
