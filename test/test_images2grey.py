@@ -142,5 +142,51 @@ class ImageGreyscaleTest(unittest.TestCase):
             shutil.rmtree(TEST_SAVE_FOLDER, True)
 
 
+class StartTest(unittest.TestCase):
+    def setUp(self):
+        if not os.path.exists(BACKUP_FOLDER):
+            os.makedirs(BACKUP_FOLDER)
+
+        shutil.copy(TEST_IMG_PATH_1, BACKUP_FOLDER)
+        shutil.copy(TEST_IMG_PATH_2, BACKUP_FOLDER)
+        shutil.copy(TEST_GREY_IMG_PATH, BACKUP_FOLDER)
+
+    def test_start_slicing(self):
+        os.makedirs(TEST_SAVE_FOLDER)
+        images2grey.start(SCRIPT_FOLDER, TEST_SAVE_FOLDER)
+
+        images = images2grey.get_images_paths(TEST_SAVE_FOLDER)
+        self.assertEqual(len(images), 3)
+        for path in images:
+            self.assertTrue(self.check_greyscale(path))
+
+    def check_greyscale(self, t_path):
+        img = Image.open(t_path)
+        img.load()
+        width, height = img.size
+        for wdt in range(width):
+            for hgt in range(height):
+                # If pixel if grey, getpixel() will return one int value.
+                # If it's color pixel, we will get tuple of integers.
+                pixel = img.getpixel((wdt, hgt))
+                if not isinstance(pixel, int):
+                    img.close()
+                    return False
+
+        img.close()
+        return True
+
+    def tearDown(self):
+        shutil.copy(BACKUP_FOLDER + str(os.sep) + TEST_IMG_1, SCRIPT_FOLDER)
+        shutil.copy(BACKUP_FOLDER + str(os.sep) + TEST_IMG_2, SCRIPT_FOLDER)
+        shutil.copy(BACKUP_FOLDER + str(os.sep) + TEST_GREY_IMG, SCRIPT_FOLDER)
+
+        if os.path.exists(BACKUP_FOLDER):
+            shutil.rmtree(BACKUP_FOLDER, True)
+
+        if os.path.exists(TEST_SAVE_FOLDER):
+            shutil.rmtree(TEST_SAVE_FOLDER, True)
+
+
 if __name__ == "__main__":
     unittest.main()
