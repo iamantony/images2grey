@@ -50,7 +50,9 @@ class GetImagesPathsTest(unittest.TestCase):
 
     def test_valid_folder(self):
         paths = [TEST_IMG_PATH_1, TEST_IMG_PATH_2, TEST_GREY_IMG_PATH]
-        self.assertEqual(images2grey.get_images_paths(SCRIPT_FOLDER), paths)
+        found_images = images2grey.get_images_paths(SCRIPT_FOLDER)
+        for path in found_images:
+            self.assertTrue(path in paths)
 
 
 class GetExtensionTest(unittest.TestCase):
