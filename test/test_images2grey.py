@@ -102,8 +102,8 @@ class ImageGreyscaleTest(unittest.TestCase):
     def test_greyscale(self):
         paths = [TEST_IMG_PATH_1, TEST_IMG_PATH_2, TEST_GREY_IMG_PATH]
         result_paths = images2grey.greyscale(paths, "")
-        self.assertEqual(result_paths, paths)
         for path in result_paths:
+            self.assertTrue(path in paths)
             self.assertTrue(self.check_greyscale(path))
 
     def test_greyscale_with_path(self):
